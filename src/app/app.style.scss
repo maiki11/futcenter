@@ -1,0 +1,423 @@
+@charset "UTF-8";
+@import "../scss/bootstrap-variables";
+
+@font-face {
+    font-family: bebasNeue;
+    src: url("../assets/fonts/BebasNeue.otf");
+}
+.padding5{padding: 5px;}
+.center{text-align: center;}
+header,.app-body,.app-body button{
+    font-family: bebasNeue;
+}
+
+.matches{
+    width: 100%;
+    min-height: 550px;
+    background-image: url("../assets/img/background-matches.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.match-rent{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.match-rent button{
+    letter-spacing: 5px;
+    border-bottom: 0px;
+    cursor: pointer;
+}
+
+.match-rent button.active{
+    cursor: default;
+}
+
+.matches{
+    text-align: center;
+}
+
+.buttons{
+    padding-top: 20px;
+    display: -webkit-inline-box;
+}
+
+.buttons button{
+    border: 0px;
+    letter-spacing: 1.5px;
+    padding: 5px 30px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.buttons button.active{
+    background: #fff;
+    color: #ff0000;
+    cursor: default;
+}
+
+.buttons button.first{
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.buttons button.last{
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.matches h3{
+    padding-top: 20px;
+    color: #fff;
+    text-align: left;
+}
+
+.matches .line{
+    width: 50px;
+    height: 5px;
+    background: #fff;
+    margin: 10px 0px;
+}
+
+.matches table{ margin-bottom: 0px;}
+
+.matches table tr{ padding: 10px; }
+
+.matches table td{ 
+    border: 0px; 
+    vertical-align: middle;
+    text-align: center;
+    padding: 11px 0px 11px 0px;
+}
+
+td.logotipo-table{
+    width: 50px;
+}
+
+.matches table img{
+    max-width: 40px;
+    max-height: 40px;
+}
+
+.matches table .time{
+    background: $brand-primary;
+    color: #fff;
+    width: 100px;
+    max-width: 200px;
+}
+
+.matches table .secondary{
+    background: #45556f;
+    color: #fff;
+}
+
+.matches table a.page-link{
+    background: none;
+    color: #fff;
+    border: 0px;
+    font-size: 1.5em;
+}
+
+.matches table .team-name-table {
+    font-size: 1.7em;
+    color: #1b3a77;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.matches table td.button:hover{
+    background: #5f86c6;
+}
+
+.matches table tr.section{
+    background: #c7c7c7;
+}
+
+.matches .card{border:0px;}
+
+carousel .card-team{
+    height: 370px;
+    float: left;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+carousel .versus{
+    width: 100%;
+    height: 370px;
+    float: left;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.matches .back-logo{
+    width: 100%;
+    height: 80%;
+    background-size: cover;
+    background-position: center;
+    text-align: -webkit-center;
+}
+
+.back-logo.img1{
+    background: url("../assets/img/background-logo1.png");
+}
+
+.back-logo.img2{
+    background: url("../assets/img/background-logo2.png");
+}
+
+.back-logo .team-logo{
+    width: 70%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.back-logo .default-team-logo{
+    width: 70%;
+    height: 100%;
+    background: url("../assets/img/team-logo-default.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.matches .team-name{
+    width: 100%;
+    height: 20%;
+    background: $brand-primary;
+    color: #fff;
+    font-size: 1.6em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.matches .team-name .name,.matches .day-match .name,.matches .match-vs .name{
+    width: 100%;
+}
+
+.matches .match-vs .result{
+    font-size: 2em;
+    color: #a6a6a6;
+}
+
+.matches .day-match{
+    /*width: 20%;*/
+    height: 20%;
+    background: #45556f;
+    color: #fff;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.matches .match-vs{
+    height: 60%;
+    background: #fff;
+    color: #45556f;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+#statistics{
+    font-family: bebasNeue;
+}
+
+#statistics h2{
+    color: #ff0000;
+    margin-top: 10px;
+    text-align: left;
+}
+
+hr.red-hr{
+    margin-top: 5px;
+    color: #ff0000;
+    border: #ff0000 solid 1px;
+}
+
+#statistics .select-default{
+    background: #e7e7e7 url("../assets/img/select-blue.png")  no-repeat !important;
+    background-size: 24px 20px !important;
+    background-position: right center !important;
+    border-radius: 0px !important;
+    border: 1px solid #e1e6ef !important;
+    border: none;
+    outline: none;
+    display: inline-block;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;    
+    color: #1b3a77;
+    font-family: bebasNeue;
+    letter-spacing: 1.2ch;
+    font-size: 1.7em;
+    height: 1.8em;
+}
+
+#statistics .buttons{
+    font-size: 1.7em;
+}
+
+#statistics .buttons a{
+    padding: 10px;
+}
+
+.card-header {
+    font-size: 1.7em;
+}
+
+.card-block table tr,.card-block table td{
+    padding: 0px;
+    margin: 0px;
+    font-size: 1.3em;
+}
+
+.card-block table td.logo{
+    width: 20%;
+    padding: 10px;
+}
+
+.card-block table td.logo img{
+    width: 100%;
+}
+
+.card-block table td.right{
+    text-align: right;
+}
+
+.card-block table td.left{
+    text-align: left;
+}
+
+.card-block table td.blue{
+    background: #1b3a77;
+    color: #fff;
+}
+
+.card-block h1{
+    text-align: center;
+}
+
+.card-block hr.blue-hr{
+    margin-top: 5px;
+    border: #1b3a77 solid 1px;
+}
+//RULES
+#rules{
+    width: 100%;
+    min-height: 200px;
+    background-image: url("../assets/img/background-rules.png");
+    background-size: cover;
+    background-position: center;
+}
+
+#rules h3{
+    padding-top: 15px; 
+    color: #fff;
+}
+
+ hr.white-hr{
+    margin-top: 5px;
+    border: #fff solid 1px;
+}
+
+#rules .card{
+    background: none;
+    max-height: 450px;
+    overflow: hidden;
+    padding: 5px;
+    margin: 0px;
+    border: none;
+}
+
+#rules .card-block{
+    min-height: 200px;
+    text-align: center;
+}
+
+#rules .card-block a{
+    margin: 25%;
+    color: #fff;
+    cursor: pointer;
+}
+
+.background-image-rules{
+    background-size: cover;
+    background-position: center;
+}
+
+.teams-rules{
+    background-image: url("../assets/img/reglamento-equipos.png");
+}
+
+.players-rules{
+    background-image: url("../assets/img/reglamento-jugadores.png");
+}
+
+.stadium-rules{
+    background-image: url("../assets/img/reglamento-instalaciones.png");
+}
+
+.matches-rules{
+    background-image: url("../assets/img/reglamento-competencia.png");
+}
+//CONTACT
+#contact{
+    padding-top: 15px;
+    font-family: bebasNeue;
+    font-size: 1.7em;
+}
+
+#map {
+    height: 100%;
+}
+
+.table-view table{
+    width: 100%;
+}
+
+.table-view img{
+    max-width: 30px;
+    max-height: 30px;
+}
+
+.bg-blue{
+    background: #1b3a77;
+    color: #fff;
+}
+
+.carousel-indicators{display: none;}
+
+.btn-danger:focus, .btn-danger.focus{
+    box-shadow: none;
+    outline: 0px;
+}
+
+#comment-input.textarea{
+    
+}
+
+//MEDIA 400
+@media(max-width:400px){
+    .matches table .team-name-table {
+        font-size: 1.2em;
+        min-width: 120px;
+    }
+
+    .card-block table tr,.card-block table td{
+        font-size: 1em;
+    }
+
+}
+
+.bs-datepicker {
+    margin-top: 90px;
+  }

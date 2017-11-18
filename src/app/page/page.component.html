@@ -1,0 +1,409 @@
+    <!-- Breadcrumb -->
+    <!--<ol class="breadcrumb">
+        ...
+      </ol>-->
+    <div id="matches">
+      <div class="row">
+        <div class="hidden-sm-down col-lg-4"></div>
+        <div class="col-lg-4 center">
+          <div class="match-rent btn-group" role="group">
+            <button class="btn btn-outline-danger active">Juegos</button>
+            <!--<button class="btn btn-outline-danger">Rentas</button>-->
+          </div>
+        </div>
+        <div class="hidden-sm-down col-lg-4"></div>
+      </div>
+      <div class="matches container-fluid">
+        <div *ngIf="leagues" class="inline btn-group buttons">
+            <button (click)="changeLeague(i)" *ngFor="let league of leagues; let i = index; let l = last" [ngClass]="{
+                      'btn-danger': 1 == 1,
+                      'first': i == 0,
+                      'last': l == true,
+                      'active': league.selected
+                    }">
+                {{league.title}}
+            </button>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 hidden-md-down">
+            <h3>ÚLTIMOS RESULTADOS</h3>
+            <div class="line"></div>
+            <div class="card">
+              <div *ngIf="prevMatches && prevMatches.length>0; else defaultMatch">
+                <carousel>
+                  <slide *ngFor="let match of prevMatches | slice:0:15">
+                    <div class="card-team col-lg-5">
+                      <div class="back-logo img1">
+                        <div class="team-logo" [style.background-image]="match.team1 ? 'url('+match.team1.imageUrl+')' : 'url(https://firebasestorage.googleapis.com/v0/b/futcenter-2a726.appspot.com/o/uploads%2Fteam-logo-default%20copia.png?alt=media&token=645da9c3-2646-4799-9863-fb098c8108aa)'"></div>
+                      </div>
+                      <div class="team-name">
+                        <div class="name">{{match.team1.title || "None"}}</div>
+                      </div>
+                    </div>
+                    <div class="versus col-lg-2">
+                      <div class="day-match">
+                        <div class="name">{{match.footballDay.title || "None"}}</div>
+                      </div>
+                      <div class="match-vs">
+                        <div class="name result">
+                          <label class="text-danger">{{match.result1}}</label>-<label class="">{{match.result2}}</label>
+                        </div>
+                      </div>
+                      <div class="day-match">
+                        <div class="name">{{match.startDate | date: 'EEE dd-MMM'}}<br>{{match.startDate | date: 'HH:mm'}}</div>
+                      </div>
+                    </div>
+                    <div class="card-team col-lg-5">
+                      <div class="back-logo img2">
+                        <div class="team-logo"  [style.background-image]="match.team2 ? 'url('+match.team2.imageUrl+')' : 'url(https://firebasestorage.googleapis.com/v0/b/futcenter-2a726.appspot.com/o/uploads%2Fteam-logo-default%20copia.png?alt=media&token=645da9c3-2646-4799-9863-fb098c8108aa)'"></div>
+                      </div>
+                      <div class="team-name">
+                        <div class="name">{{match.team2.title || "None"}}</div>
+                      </div>
+                    </div>
+                  </slide>
+                </carousel>
+              </div>
+            </div>
+          </div>
+          <!--próximos juegos-->
+          <div class="col-md-12 col-lg-6 mb-2">
+            <h3>PRÓXIMOS JUEGOS</h3>
+            <div class="line"></div>
+            <div class="card">
+              <table class="table">
+                <tbody *ngIf="nextMatches && nextMatches.length>0; else defaultTable">
+                  <tr *ngFor="let match of nextMatches | slice:page:page+5 let i = index;">
+                    <td class="hidden-sm-down logotipo-table"><img [src]="match.team1.imageUrl" /></td>
+                    <td class="team-name-table"><a>{{match.team1.title}}</a></td>
+                    <td class="time">{{match.startDate | date: 'EEE dd-MMM'}}<br>{{match.startDate | date: 'HH:mm'}}</td>
+                    <td class="team-name-table"><a>{{match.team2.title}}</a></td>
+                    <td class="hidden-sm-down logotipo-table"><img [src]="match.team2.imageUrl"/></td>
+                  </tr>
+                  <tr>
+                    <td class="time button hidden-sm-down" colspan="2"><a class="page-link" (click)="prevPageMatch(page-5)">Anterior</a></td>
+                    <td class="time button hidden-md-up"><a class="page-link" (click)="prevPageMatch(page-5)">Anterior</a></td>
+                    <td class="secondary"></td>
+                    <td class="time button hidden-sm-down" colspan="2"><a class="page-link" (click)="nextPageMatch(page+5)">Siguiente</a></td>
+                    <td class="time button hidden-md-up"><a class="page-link" (click)="nextPageMatch(page+5)">Siguiente</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid" id="statistics">
+        <div class="col-lg-12">
+          <h2>Estadísticas</h2>
+          <hr class="red-hr">
+          <div class="row">
+            <div class="hidden-sm-down col-lg-4"></div>
+            <div class="col-lg-4">
+              <select (change)="changeLeagueTables($event.target.value)" class="form-control select-default" name="leagues">
+                    <option *ngFor="let league of leagues; " value="{{league.$key}}">{{league.title}}</option>
+                  </select>
+              <div class="text-center buttons">
+                <a class="button-card-view" (click)="isCard=true" data-toggle="tooltip" data-placement="top" title="Vista de tarjetetas"><span class="fa fa-th"></span></a>
+                <a class="button-table-view" (click)="isCard=false" data-toggle="tooltip" data-placement="top" title="Vista de tabla"><span class="fa fa-th-list"></span></a>
+              </div>
+            </div>
+            <div class="hidden-sm-down col-lg-4"></div>
+          </div>
+        </div>
+        <br>
+        <div *ngIf="isCard; then card_view else table_view" [@myAnimation]="show"></div>
+      </div>
+      <div id="rules" class="container-fluid">
+        <h3>Reglamentos</h3>
+        <hr class="white-hr">
+        <div class="row">
+          <div class="card col-lg-3">
+            <div class="card-header">
+              Equipos, Porras, Asistentes
+            </div>
+            <div class="card-block background-image-rules teams-rules" >
+                <a href="../../assets/docs/equipos.pdf" target="_blank" class="btn btn-danger" >Ver más</a>
+            </div>
+          </div>
+          <div class="card col-lg-3">
+            <div class="card-header">
+              Jugadores
+            </div>
+            <div class="card-block background-image-rules players-rules" >
+                <a href="../../assets/docs/jugadores.pdf" target="_blank" class="btn btn-danger" >Ver más</a>
+            </div>
+          </div>
+          <div class="card col-lg-3">
+            <div class="card-header">
+              Uso de instalaciones
+            </div>
+            <div class="card-block background-image-rules stadium-rules" >
+                <a href="../../assets/docs/instalaciones.pdf" target="_blank" class="btn btn-danger" >Ver más</a>
+            </div>
+          </div>
+          <div class="card col-lg-3">
+            <div class="card-header">
+              Competencia de futbol
+            </div>
+            <div class="card-block background-image-rules matches-rules" >
+                <a href="../../assets/docs/competencias.pdf" target="_blank" class="btn btn-danger" >Ver más</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="contact" class="container-fluid">
+        <h3>Contáctanos</h3>
+        <hr class="blue-hr">
+        <div class="row">
+          <div class="col-lg-6 col-sm-12">
+            <!--<div id="map"></div>-->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1998.6128305836382!2d-110.95406238210896!3d29.14323024840266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2smx!4v1497814171208" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <div class="row">
+              <div class="col-lg-12">
+                <b><i class="fa fa-map-marker"></i> Dirección: </b> Av Vistas Sur Num. 4 colonia Vistas
+              </div>
+              <div class="col-lg-12">
+                <b><i class="fa fa-phone"></i> Teléfono: </b> <a href="tel:6624715081">66247150810</a>
+              </div>
+              <div class="col-lg-12">
+                <b><i class="fa fa-location-arrow"></i> Refencia: </b> Frente  a Bol 300
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-sm-12">
+            <div class="card">
+              <form [formGroup]="rForm" (ngSubmit)="sendMsg(rForm.value)" >
+                <div class="card-header">
+                  <strong>Déjanos tu comentario</strong>
+                </div>
+                <div class="card-block">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" formControlName="name" class="form-control" id="name" placeholder="Nombre">
+                        <span class="help-block"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/.row-->
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label for="email">Correo</label>
+                        <input type="email" formControlName="email" class="form-control" id="email" placeholder="micorreo@dominio.com">
+                        <span class="help-block"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label for="msg-input">Comentario</label>
+                        <textarea id="msg-input" formControlName="msg" name="msg" rows="9" class="form-control" placeholder="Comentario"></textarea>
+                        <span class="help-block"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <input type="submit" [disabled]="!rForm.valid" class="btn btn-primary" value="Enviar" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!--<aside class="aside-menu hiden">
+  </aside>-->
+
+<!--<footer class="app-footer">
+    ...
+  </footer>-->
+
+<ng-template #card_view>
+  <div class="row" [@myAnimation]="show">
+    <div class="col-lg-4" *ngFor="let team of teamsTable; let i = index">
+      <div class="card">
+        <div class="card-header">
+          {{team.team}}
+          <span class="badge badge-pill badge-primary float-right">{{i+1}}</span>
+        </div>
+        <div class="card-block">
+          <table>
+            <tr>
+              <td rowspan="4" class="logo"><img [src]="team.photo" /></td>
+              <td class="text-center blue">JG</td>
+              <td class="text-center ">{{team.wins}}</td>
+              <td class="text-center blue">GF</td>
+              <td class="text-center ">{{team.gFor}}</td>
+            </tr>
+            <tr>
+              <td class="text-center blue">JE</td>
+              <td class="text-center">{{team.tie}}</td>
+              <td class="blue text-center">GC</td>
+              <td class="text-center ">{{team.gAgainst}}</td>
+            </tr>
+            <tr>
+              <td class="blue text-center">JP</td>
+              <td class="text-center">{{team.loses}}</td>
+              <td class="blue text-center">DIF</td>
+              <td class="text-center ">{{team.gDiff}}</td>
+            </tr>
+          </table>
+          <hr class="blue-hr">
+          <h1>{{team.wins*3+team.tie}} PTS</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #table_view>
+  <div class="row" [@myAnimation]="show">
+    <div class="col-lg-6">
+      <div class="card table-view">
+        <div class="card-header">
+          Tabla de posiciones
+        </div>
+        <div class="card-block">
+          <table>
+            <tr class="bg-blue">
+              <td class="text-center">POS</td>
+              <td class="text-center"></td>
+              <td class="text-center">EQUIPO</td>
+              <td class="text-center" data-toggle="tooltip" data-placement="top" title="Juegos Jugados">JJ</td>
+              <td class="text-center" data-toggle="tooltip" data-placement="top" title="Juegos Ganados">JG</td>
+              <td class="text-center" data-toggle="tooltip" data-placement="top" title="Juegos Empatados">JE</td>
+              <td class="text-center " data-toggle="tooltip" data-placement="top" title="Juegos Perdidos">JP</td>
+              <td class="text-center " data-toggle="tooltip" data-placement="top" title="Goles a Favor">GF</td>
+              <td class="text-center " data-toggle="tooltip" data-placement="top" title="Goles en Contra">GC</td>
+              <td class="text-center " data-toggle="tooltip" data-placement="top" title="Diferencia de Goles">DIF</td>
+              <td class="text-center " data-toggle="tooltip" data-placement="top" title="Puntos">PTS</td>
+            </tr>
+            <tr *ngFor="let team of teamsTable; let i = index">
+              <td class="text-center">{{i+1}}</td>
+              <td class="text-center"><img [src]="team.photo" /></td>
+              <td class="text-center">{{team.team}}</td>
+              <td class="text-center" data-toggle="tooltip" data-placement="top" title="Juegos Jugados">{{team.gp}}</td>
+              <td class="text-center" data-toggle="tooltip" data-placement="top" title="Juegos Ganados">{{team.wins}}</td>
+              <td class="text-center" data-toggle="tooltip" data-placement="top" title="Juegos Empatados">{{team.tie}}</td>
+              <td class="text-center " data-toggle="tooltip" data-placement="top" title="Juegos Perdidos">{{team.loses}}</td>
+              <td class="text-center " data-toggle="tooltip" data-placement="top" title="Goles a Favor">{{team.gFor}}</td>
+              <td class="text-center " data-toggle="tooltip" data-placement="top" title="Goles en Contra">{{team.gAgainst}}</td>
+              <td class="text-center " data-toggle="tooltip" data-placement="top" title="Diferencia de Goles">{{team.gDiff}}</td>
+              <td class="text-center " data-toggle="tooltip" data-placement="top" title="Puntos">{{team.wins*3+team.tie}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card table-view">
+        <div class="card-header">
+          Tabla de Goleo
+        </div>
+        <div class="card-block">
+          <table>
+            <tr class="bg-blue">
+              <td class="text-center">POS</td>
+              <td class="text-center">JUGADOR</td>
+              <td class="text-center">EQUIPO</td>
+              <td class="text-center">GOLES</td>
+            </tr>
+            <tr>
+              <td class="text-center">1</td>
+              <td class="text-center">POR DEFINIR</td>
+              <td class="text-center">???</td>
+              <td class="text-center">--</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--matches default-->
+<ng-template #defaultMatch>
+  <carousel>
+    <slide>
+        <div class="card-team col-lg-5">
+          <div class="back-logo img1">
+            <div class="team-logo default-team-logo"></div>
+          </div>
+          <div class="team-name">
+            <div class="name">Sin definir</div>
+          </div>
+        </div>
+        <div class="versus col-lg-2">
+          <div class="day-match">
+            <div class="name">Día</div>
+          </div>
+          <div class="match-vs">
+            <div class="name result">
+              <label class="text-danger">0</label>-<label class="">0</label></div>
+          </div>
+          <div class="day-match">
+            <div class="name">dd-mm-yyyy</div>
+          </div>
+        </div>
+        <div class="card-team col-lg-5">
+          <div class="back-logo img2">
+            <div class="team-logo default-team-logo"></div>
+          </div>
+          <div class="team-name">
+            <div class="name">Sin definir</div>
+          </div>
+        </div>
+      </slide>
+  </carousel>
+</ng-template>
+
+<ng-template #defaultTable>
+  <tr>
+    <td class="hidden-sm-down logotipo-table"></td>
+    <td class="team-name-table"><a>Sin definir</a></td>
+    <td class="time">7:00 PM</td>
+    <td class="team-name-table"><a>Sin definir</a></td>
+    <td class="hidden-sm-down logotipo-table"></td>
+  </tr>
+  <tr>
+    <td class="hidden-sm-down logotipo-table"></td>
+    <td class="team-name-table"><a>Sin definir</a></td>
+    <td class="time">8:00 PM</td>
+    <td class="team-name-table"><a>Sin definir</a></td>
+    <td class="hidden-sm-down logotipo-table"></td>
+  </tr>
+  <tr>
+    <td class="hidden-sm-down logotipo-table"></td>
+    <td class="team-name-table"><a>Sin definir</a></td>
+    <td class="time">9:00 PM</td>
+    <td class="team-name-table"><a>Sin definir</a></td>
+    <td class="hidden-sm-down logotipo-table"></td>
+  </tr>
+  <tr>
+    <td class="hidden-sm-down logotipo-table"></td>
+    <td class="team-name-table"><a>Sin definir</a></td>
+    <td class="time">10:00 PM</td>
+    <td class="team-name-table"><a>Sin definir</a></td>
+    <td class="hidden-sm-down logotipo-table"></td>
+  </tr>
+  <tr>
+    <td class="hidden-sm-down logotipo-table"></td>
+    <td class="team-name-table"><a>Sin definir</a></td>
+    <td class="time">11:00 PM</td>
+    <td class="team-name-table"><a>Sin definir</a></td>
+    <td class="hidden-sm-down logotipo-table"></td>
+  </tr>
+  <tr>
+    <td class="time button hidden-sm-down" colspan="2"><a class="page-link">Anterior</a></td>
+    <td class="time button hidden-md-up"><a class="page-link">Anterior</a></td>
+    <td class="secondary">MIÉRCOLES 11 JUN</td>
+    <td class="time button hidden-sm-down" colspan="2"><a class="page-link">Siguiente</a></td>
+    <td class="time button hidden-md-up"><a class="page-link">Anterior</a></td>
+  </tr>
+</ng-template>

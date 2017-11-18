@@ -1,0 +1,37 @@
+<br>
+<div class="row">
+  <div class="col-lg-4">
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+      <h1 class="padding5 center">Ingresa con tu cuenta</h1><br>
+        <div class="login-box">
+          <div class="col-lg-12">
+            <form #formSubmit="ngForm" (ngSubmit)="loginwithemail(); formSubmit.reset()">
+              <div class="row">
+                <div class="col-lg-12">
+                  <input required type="email" name="email" placeholder="Email" [(ngModel)]="user.email" class="form-control" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-lg-12">
+                  <input required type="password" name="password" placeholder="Password" [(ngModel)]="user.password" class="form-control" required/>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-lg-12 center">
+                  <input type="submit" class="button expand" value="Iniciar" class="btn" [disabled]="!formSubmit.form.valid" />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr>
+        <button class="login loginmodal-submit" (click)="login()"><i class="fa fa-google-plus-official fa-2x" aria-hidden="true"></i></button>
+      </div>
+  </div>
+  <div class="col-lg-4">
+  </div>
+</div>

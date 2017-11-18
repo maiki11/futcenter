@@ -1,0 +1,25 @@
+<hr>
+<div (click)="onSelect()" class="card clicked">
+  <div class="card-block">
+    <div class="col-lg-4">
+      <img [src]="match.team1.imageUrl" onerror="this.src='./assets/images/football-team-logo-default.jpg'" class="md-card-image rounded float-left" alt="user avatar">
+      <br>
+      {{match.team1.title}}
+    </div>
+    <div class="col-lg-4 align-self-center">
+      <div class="row">
+        {{match.league.title}}
+      </div>
+      <div> {{match.result1}} VS  {{match.result2}}  </div>
+      <div class="row">
+        {{match.startDate | date: 'Y-M-d'}}
+        
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <img [src]="match.team2.imageUrl" onerror="this.src='./assets/images/football-team-logo-default.jpg'" class="md-card-image rounded float-right" alt="user avatar">
+      <br>
+      {{match.team2.title}}
+    </div>
+  </div>
+</div>

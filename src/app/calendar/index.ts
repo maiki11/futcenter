@@ -1,0 +1,1 @@
+export * from '../shared/pipes/shared-pipes.module';

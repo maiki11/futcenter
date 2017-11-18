@@ -1,0 +1,81 @@
+<ul [ngClass]="{
+    'nav navbar-nav hidden-md-down height100' : menu == 'page',
+    'nav' : menu == 'side'
+  }">
+  <li class="nav-item">
+    <!--<a class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a>-->
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/inicio']" [routerLinkActive]="['active']">Inicio</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/inicio']" [routerLinkActive]="['active']">Juegos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/inicio']" [routerLinkActive]="['active']" fragment="statistics">Estadísticas</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/calendario']" [routerLinkActive]="['active']">Calendario</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/inicio']" fragment="rules"[routerLinkActive]="['active']">Reglamento</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="http://sistema.futcenterhmo.com">Inicia sesión o registrate</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['/inicio']" fragment="contact" [routerLinkActive]="['active']">Contacto</a>
+  </li>
+  <!-- <div *ngIf="isLoggedIn == 'true'; then template_admin else template_no_admin"></div> -->
+</ul>
+<!--<form class="form-inline b-r-1 px-2 hidden-md-down"> Luego lo usaré
+<i class="fa fa-search"></i>
+<input class="form-control" type="text" placeholder="Buscar equipo...">
+</form>-->
+<ul class="nav navbar-nav ml-auto">
+  <!-- menu de admin y pagina -->
+  <!--<li class="nav-item hidden-md-down"> Menú izquierda
+    <a class="nav-link navbar-toggler mobile-sidebar-toggler aside-menu-toggler" href="#">&#9776;</a>
+  </li>-->
+</ul>
+
+<ng-template #template_no_admin>
+  <li class="nav-item dropdown hidden-md-down" dropdown placement="bottom right" (onToggle)="toggled($event)">
+    <a class="nav-link" data-toggle="dropdown"  [routerLink]="['/login']" [routerLinkActive]="['active']" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+      <i class="glyphicons glyphicons-log-in"></i> Iniciar Sesión
+    </a>
+  </li>
+  <li class="nav-item dropdown hidden-md-down" dropdown placement="bottom right" (onToggle)="toggled($event)">
+    <a class="nav-link" data-toggle="dropdown"  [routerLink]="['/signup']" [routerLinkActive]="['active']"role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+      <i class="glyphicons glyphicons-user-key"></i> Registrarse
+    </a>
+  </li>
+</ng-template>
+
+<ng-template #template_admin>
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+        <div class="nav-pill avatar">
+          <img src="assets/img/icon-captain.png" class="img-avatar">
+        </div>
+        <!--<span class="badge badge-pill badge-danger">9</span>-->
+        {{user_email}}
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+
+        <div class="dropdown-header text-center">
+          <strong>Mi cuenta</strong>
+        </div>
+        <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Mensajes<!--<span class="badge badge-success">0</span>--></a>
+        <div class="dropdown-header text-center">
+          <strong>Congiguraciones</strong>
+        </div>
+        <a class="dropdown-item" href="http://sistema.futcenterhmo.com/"><i class="fa fa-file"></i> Mi equipo</a>
+        <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Perfil</a>
+        <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Pagos</a>
+        <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Configuración</a>
+        <div class="divider"></div>
+        <a class="dropdown-item" href="#" (click)="logout()"><i class="glyphicons glyphicons-exit"></i> Cerrar sesión</a>
+      </div>
+    </li>
+  </ng-template>

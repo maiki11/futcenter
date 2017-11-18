@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="header-dates-search">
+        <label>Fechas:</label>
+        <input class="text-box" bsDaterangepicker [(ngModel)]="bsRangeValue">
+        <select class="" [(ngModel)]="sortType">
+          <option selected value="asc" >Ascendiente</option>
+          <option value="des">Descendiente</option>
+        </select>
+      </div>
+      <div class="card-group" *ngIf="matches">
+          <div *ngIf="(matches | startdate: startDate | enddate: endDate)==''" class="card col-lg-12">
+            <div class="card-block align-self-center sizeXl">
+              Sin juegos para las fechas seleccionadas. Intente buscando en otras.
+            </div>
+          </div>
+        <div *ngFor="let match of matches  | startdate: startDate | enddate: endDate | sortBy: 'startDate':sortType" class="col-lg-6">
+          <div class="card clicked">
+            <div class="card-block">
+              <div class="col-lg-4 layer-text left">
+                <div class="logo-team" [style.background-image]= "'url(' + match.team1.imageUrl + ')'">
+                </div>
+                {{match.team1.title}}
+              </div>
+              <div class="col-lg-4 layer-text align-self-center layer-results left">
+                {{match.league.title}}
+                <hr>
+                {{match.result1}} VS  {{match.result2}} 
+                <hr>
+                {{match.startDate | date}}
+                {{match.startDate | date: 'H:mm'}}
+              </div>
+              <div class="col-lg-4 layer-text left">
+                <div class="logo-team" [style.background-image]= "'url(' + match.team2.imageUrl + ')'">
+                </div>
+                {{match.team2.title}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
